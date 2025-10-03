@@ -18,17 +18,17 @@ abstract class TaskModule {
     ),
   );
 
-  @lazySingleton
-  TaskLocalDataSource get local => TaskLocalDataSource();
+  // @lazySingleton
+  // TaskLocalDataSource get local => TaskLocalDataSource();
 }
 
-@LazySingleton(as: TaskRepository)
-class TaskRepositoryProvider extends TaskRepositoryImpl {
-  TaskRepositoryProvider({required super.remote, required super.local});
-}
+// @LazySingleton(as: TaskRepository)
+// class TaskRepositoryProvider extends TaskRepositoryImpl {
+//   TaskRepositoryProvider({required super.remote, required super.local});
+// }
 
-@injectable
-GetTasks provideGetTasks(TaskRepository repo) => GetTasks(repo);
+// @injectable
+// GetTasks provideGetTasks(TaskRepository repo) => GetTasks(repo);
 
-@injectable
-CreateTask provideCreateTask(TaskRepository repo) => CreateTask(repo);
+// @injectable
+// CreateTask provideCreateTask(TaskRepository repo) => CreateTask(repo);

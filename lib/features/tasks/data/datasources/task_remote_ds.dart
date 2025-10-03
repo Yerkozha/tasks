@@ -11,7 +11,7 @@ abstract class TaskApi {
   Future<List<TaskDto>> getTasks();
 
   @POST('/tasks')
-  Future<TaskDto> createTask(@Body() Map<String, dynamic> body);
+  Future<TaskDto> createTask(@Body() TaskDto body);
 
   @PATCH('/tasks/{id}/toggle')
   Future<TaskDto> toggleDone(@Path('id') String id);

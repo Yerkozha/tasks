@@ -5,6 +5,7 @@ import 'app/di/di.dart';
 import 'features/tasks/presentation/viewmodels/task_list_vm.dart';
 import 'features/tasks/domain/usecases/get_tasks.dart';
 import 'features/tasks/domain/usecases/create_task.dart';
+import 'features/tasks/domain/usecases/toggle_done.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +14,7 @@ void main() async {
   runApp(ProviderScope(
   overrides: [
     taskListVMProvider.overrideWith(
-      (ref) => TaskListVM(sl<GetTasks>(), sl<CreateTask>()),
+      (ref) => TaskListVM(sl<GetTasks>(), sl<CreateTask>(), sl<ToggleDone>())..load(),
     ),
   ],
   child: const App(),

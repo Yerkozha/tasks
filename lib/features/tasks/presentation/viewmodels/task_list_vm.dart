@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/legacy.dart';
 import '../../domain/entities/task.dart';
 import '../../domain/usecases/get_tasks.dart';
 import '../../domain/usecases/create_task.dart';
+import '../../domain/usecases/toggle_done.dart';
 
 class TaskListState {
   final List<Task> items;
@@ -25,7 +25,9 @@ class TaskListState {
 class TaskListVM extends StateNotifier<TaskListState> {
   final GetTasks _getTasks;
   final CreateTask _createTask;
-  TaskListVM(this._getTasks, this._createTask) : super(const TaskListState());
+  final ToggleDone _toggleDone;
+
+  TaskListVM(this._getTasks, this._createTask, this._toggleDone) : super(const TaskListState());
 
   Future<void> load({bool refresh = false}) async {
     try {
@@ -34,6 +36,17 @@ class TaskListVM extends StateNotifier<TaskListState> {
       state = state.copyWith(items: list, loading: false);
     } catch (e) {
       state = state.copyWith(loading: false, error: e.toString());
+    }
+  }
+
+  Future<void> toggle(String id) async {
+    try {
+      final updated = await _toggleDone(id);
+      final list =
+          state.items.map((t) => t.id == updated.id ? updated : t).toList();
+      state = state.copyWith(items: list);
+    } catch (e) {
+      state = state.copyWith(error: e.toString());
     }
   }
 

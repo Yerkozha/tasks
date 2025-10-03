@@ -23,8 +23,13 @@ class TaskListPage extends ConsumerWidget {
               (t) => CheckboxListTile(
                 value: t.done,
                 title: Text(t.title),
-                onChanged: (_) {
-                },
+                onChanged: (_) => vm.toggle(t.id),
+                secondary: t.updatedAt != null
+                      ? Text(
+                          '${t.updatedAt}',
+                          style: const TextStyle(fontSize: 12),
+                        )
+                      : null,
               ),
             ),
           ],
@@ -56,7 +61,7 @@ class TaskListPage extends ConsumerWidget {
             vm.add(title);
           }
         },
-        child: const Icon(Icons.add),
+        child: const Text("Add"),
       ),
     );
   }
